@@ -9,11 +9,18 @@
 import Cocoa
 
 class ViewController: NSViewController {
+    
+    
+    @IBOutlet weak var sourceComboBox: NSComboBox!
+    @IBOutlet weak var destComboBox: NSComboBox!
+    @IBOutlet weak var conversionButton: NSButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+
+        // TODO: Reload the source and destination fields
+        
     }
 
     override var representedObject: AnyObject? {
@@ -21,7 +28,29 @@ class ViewController: NSViewController {
         // Update the view, if already loaded.
         }
     }
+    
+    func clearComboBoxes() {
+        for box in [sourceComboBox, destComboBox] {
+            box.stringValue = ""
+        }
+    }
+    
+    func activateConvertButton() {
+        let filled = [sourceComboBox, destComboBox].reduce(true) {
+            $0 && $1.stringValue != ""
+        }
+        conversionButton.enabled = filled
+    }
 
 
+    @IBAction func performSourceSelect(sender: AnyObject) {
+    }
+    
+    @IBAction func performDestSelect(sender: AnyObject) {
+    }
+    
+    @IBAction func performConversion(sender: AnyObject) {
+    }
+    
 }
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="6198" systemVersion="14A297b" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6198"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
     </dependencies>
     <scenes>
         <!--Application-->
@@ -641,12 +641,12 @@
                         <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
                     </connections>
                 </application>
-                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModuleProvider="target"/>
+                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="SwiftGenerator" customModuleProvider="target"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="75" y="0.0"/>
         </scene>
-        <!--Window Controller - Window-->
+        <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
             <objects>
                 <windowController id="B8D-0N-5wS" sceneMemberID="viewController">
@@ -667,11 +667,112 @@
         <!--View Controller-->
         <scene sceneID="hIz-AP-VOD">
             <objects>
-                <viewController id="XfG-lQ-9wD" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="SwiftGenerator" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="m2S-Jp-Qdl">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pX1-FI-B3u">
+                                <rect key="frame" x="18" y="233" width="444" height="17"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Source data model:" id="m3I-xq-ZM4">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <comboBox verticalHuggingPriority="750" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="QHV-cD-x1A">
+                                <rect key="frame" x="21" y="198" width="354" height="26"/>
+                                <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" completes="NO" numberOfVisibleItems="5" id="fzM-IW-y6V">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    <objectValues>
+                                        <string>Item 1</string>
+                                        <string>Item 2</string>
+                                        <string>Item 3</string>
+                                    </objectValues>
+                                </comboBoxCell>
+                            </comboBox>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ft1-0s-W01">
+                                <rect key="frame" x="19" y="165" width="444" height="17"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Destination:" id="7Rv-4U-ia7">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <comboBox verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0bK-iF-vtU">
+                                <rect key="frame" x="22" y="130" width="352" height="26"/>
+                                <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" completes="NO" numberOfVisibleItems="5" id="xOW-fc-W11">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    <objectValues>
+                                        <string>Item 1</string>
+                                        <string>Item 2</string>
+                                        <string>Item 3</string>
+                                    </objectValues>
+                                </comboBoxCell>
+                            </comboBox>
+                            <button identifier="selectSource" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="aqn-sx-fE7">
+                                <rect key="frame" x="374" y="195" width="93" height="34"/>
+                                <buttonCell key="cell" type="push" title="Select…" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="UZx-6Q-ZRQ">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="performSourceSelect:" target="XfG-lQ-9wD" id="mEY-nH-nHG"/>
+                                </connections>
+                            </button>
+                            <button identifier="selectDest" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="F17-Rz-7kB">
+                                <rect key="frame" x="373" y="127" width="93" height="32"/>
+                                <buttonCell key="cell" type="push" title="Select…" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="nZE-8Z-iR8">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="performDestSelect:" target="XfG-lQ-9wD" id="ZdG-gJ-KvZ"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Tev-sj-mDy">
+                                <rect key="frame" x="374" y="59" width="93" height="32"/>
+                                <buttonCell key="cell" type="push" title="Convert" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ovb-bk-Fmh">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="performConversion:" target="XfG-lQ-9wD" id="H4q-nz-pK7"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="F17-Rz-7kB" firstAttribute="leading" secondItem="0bK-iF-vtU" secondAttribute="trailing" constant="8" symbolic="YES" id="4JK-k0-Q4H"/>
+                            <constraint firstItem="pX1-FI-B3u" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="6AU-Qt-46Z"/>
+                            <constraint firstItem="pX1-FI-B3u" firstAttribute="trailing" secondItem="F17-Rz-7kB" secondAttribute="trailing" id="Arv-gm-cas"/>
+                            <constraint firstItem="aqn-sx-fE7" firstAttribute="baseline" secondItem="QHV-cD-x1A" secondAttribute="baseline" constant="-2" id="LdT-MJ-6vp"/>
+                            <constraint firstAttribute="trailing" secondItem="pX1-FI-B3u" secondAttribute="trailing" constant="20" id="RrW-MQ-MBI"/>
+                            <constraint firstItem="aqn-sx-fE7" firstAttribute="top" secondItem="pX1-FI-B3u" secondAttribute="bottom" constant="8" symbolic="YES" id="SA1-Z7-4Yc"/>
+                            <constraint firstItem="aqn-sx-fE7" firstAttribute="width" secondItem="Tev-sj-mDy" secondAttribute="width" id="TLA-7H-UjW"/>
+                            <constraint firstItem="aqn-sx-fE7" firstAttribute="trailing" secondItem="Tev-sj-mDy" secondAttribute="trailing" id="TTP-Hz-CGR"/>
+                            <constraint firstItem="Tev-sj-mDy" firstAttribute="top" secondItem="F17-Rz-7kB" secondAttribute="bottom" constant="47" id="XAK-bh-2M2"/>
+                            <constraint firstItem="pX1-FI-B3u" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" id="emA-Z7-Oqd"/>
+                            <constraint firstItem="QHV-cD-x1A" firstAttribute="top" secondItem="pX1-FI-B3u" secondAttribute="bottom" constant="11" id="gzK-Ri-U35"/>
+                            <constraint firstItem="aqn-sx-fE7" firstAttribute="leading" secondItem="QHV-cD-x1A" secondAttribute="trailing" constant="8" symbolic="YES" id="h6i-jK-kQV"/>
+                            <constraint firstItem="pX1-FI-B3u" firstAttribute="leading" secondItem="0bK-iF-vtU" secondAttribute="leading" constant="-2" id="jWz-w5-881"/>
+                            <constraint firstItem="aqn-sx-fE7" firstAttribute="trailing" secondItem="pX1-FI-B3u" secondAttribute="trailing" constant="1" id="tLd-rY-58m"/>
+                            <constraint firstItem="F17-Rz-7kB" firstAttribute="baseline" secondItem="0bK-iF-vtU" secondAttribute="baseline" constant="-2" id="uNQ-vh-pM5"/>
+                            <constraint firstItem="pX1-FI-B3u" firstAttribute="leading" secondItem="ft1-0s-W01" secondAttribute="leading" constant="-1" id="uVt-IF-EKY"/>
+                            <constraint firstItem="pX1-FI-B3u" firstAttribute="leading" secondItem="QHV-cD-x1A" secondAttribute="leading" constant="-1" id="uWz-OB-MYY"/>
+                            <constraint firstItem="pX1-FI-B3u" firstAttribute="trailing" secondItem="ft1-0s-W01" secondAttribute="trailing" constant="-1" id="vAE-0E-zm4"/>
+                            <constraint firstItem="0bK-iF-vtU" firstAttribute="top" secondItem="ft1-0s-W01" secondAttribute="bottom" constant="11" id="yWN-58-27e"/>
+                            <constraint firstItem="ft1-0s-W01" firstAttribute="top" secondItem="QHV-cD-x1A" secondAttribute="bottom" constant="20" id="zAb-Qo-oAo"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="conversionButton" destination="Tev-sj-mDy" id="TVn-hk-yw3"/>
+                        <outlet property="destComboBox" destination="0bK-iF-vtU" id="8V4-kI-A7x"/>
+                        <outlet property="sourceComboBox" destination="QHV-cD-x1A" id="bLr-PC-5vx"/>
+                    </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
