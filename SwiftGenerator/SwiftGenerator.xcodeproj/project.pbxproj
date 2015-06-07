@@ -12,6 +12,8 @@
 		1FCDD0A61B24DD740091D584 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FCDD0A51B24DD740091D584 /* Images.xcassets */; };
 		1FCDD0A91B24DD740091D584 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FCDD0A71B24DD740091D584 /* Main.storyboard */; };
 		1FCDD0B51B24DD740091D584 /* SwiftGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDD0B41B24DD740091D584 /* SwiftGeneratorTests.swift */; };
+		1FCDD0C01B24E2E00091D584 /* Conversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDD0BF1B24E2E00091D584 /* Conversion.swift */; };
+		1FCDD0C41B24F0E40091D584 /* NSURL+file-ops.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDD0C31B24F0E40091D584 /* NSURL+file-ops.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +36,8 @@
 		1FCDD0AE1B24DD740091D584 /* SwiftGeneratorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftGeneratorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FCDD0B31B24DD740091D584 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1FCDD0B41B24DD740091D584 /* SwiftGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftGeneratorTests.swift; sourceTree = "<group>"; };
+		1FCDD0BF1B24E2E00091D584 /* Conversion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Conversion.swift; path = Model/Conversion.swift; sourceTree = "<group>"; };
+		1FCDD0C31B24F0E40091D584 /* NSURL+file-ops.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSURL+file-ops.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +79,7 @@
 		1FCDD09E1B24DD740091D584 /* SwiftGenerator */ = {
 			isa = PBXGroup;
 			children = (
+				1FCDD0BE1B24E2C30091D584 /* Model */,
 				1FCDD0A11B24DD740091D584 /* AppDelegate.swift */,
 				1FCDD0A31B24DD740091D584 /* ViewController.swift */,
 				1FCDD0A51B24DD740091D584 /* Images.xcassets */,
@@ -107,6 +112,15 @@
 				1FCDD0B31B24DD740091D584 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		1FCDD0BE1B24E2C30091D584 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				1FCDD0BF1B24E2E00091D584 /* Conversion.swift */,
+				1FCDD0C31B24F0E40091D584 /* NSURL+file-ops.swift */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -208,6 +222,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FCDD0C01B24E2E00091D584 /* Conversion.swift in Sources */,
+				1FCDD0C41B24F0E40091D584 /* NSURL+file-ops.swift in Sources */,
 				1FCDD0A41B24DD740091D584 /* ViewController.swift in Sources */,
 				1FCDD0A21B24DD740091D584 /* AppDelegate.swift in Sources */,
 			);
