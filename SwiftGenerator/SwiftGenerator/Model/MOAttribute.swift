@@ -68,9 +68,33 @@ enum AttributeType {
 
 class MOAttribute {
     let name: String
+    let kind: AttributeType
+    let optional: Bool
     
+    //         <attribute name="whenPlayed" optional="YES" attributeType="Date" syncable="YES"/>
+
+    init?(element: NSXMLElement) {
+        if let name = element.attributeForName("name")?.stringValue,
+            kind = element.attributeForName("attributeType")?.stringValue
+        {
+            self.name = name
+            self.kind = AttributeType.fromAttributeTypeString(kind)
+            if let optAttribute = element.attributeForName("optional")
+                where optAttribute == "YES"
+            { self.optional = true }
+            else { self.optional = false }
+        }
+        else {
+            self.name = ""
+            self.kind = AttributeType.UnknownAttr("")
+            self.optional = false
+            return nil
+        }
+    }
     
-    init(name: String) {
-        self.name = name
+    var declaration: String {
+        return "@NSManaged var \(name): \(kind.swiftType(optional: self.optional))"
     }
 }
+
+
