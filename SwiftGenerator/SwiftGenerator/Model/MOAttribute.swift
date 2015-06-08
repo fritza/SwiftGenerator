@@ -66,7 +66,7 @@ enum AttributeType {
     }
 }
 
-class MOAttribute {
+struct MOAttribute {
     let name: String
     let kind: AttributeType
     let optional: Bool
@@ -81,7 +81,7 @@ class MOAttribute {
             self.kind = AttributeType.fromAttributeTypeString(kind)
             if let optAttribute = element.attributeForName("optional")
                 where optAttribute == "YES"
-            { self.optional = true }
+                 { self.optional = true }
             else { self.optional = false }
         }
         else {
