@@ -75,4 +75,21 @@ enum KindOfFile {
     }
 }
 
+extension NSXMLElement {
+    func stringForAttribute(name: String) -> String? {
+        if let str = self.attributeForName(name)?.stringValue {
+            return str
+        }
+        else {
+            return nil
+        }
+    }
 
+    func booleanAttribute(name: String) -> Bool {
+        if let str = self.stringForAttribute(name) where str == "YES" {
+            return true
+
+        }
+        else { return false }
+    }
+}
