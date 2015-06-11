@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F2329751B25E1A600C37C7F /* MORelationship.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2329741B25E1A600C37C7F /* MORelationship.swift */; };
 		1FCDD0A21B24DD740091D584 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDD0A11B24DD740091D584 /* AppDelegate.swift */; };
 		1FCDD0A41B24DD740091D584 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDD0A31B24DD740091D584 /* ViewController.swift */; };
 		1FCDD0A61B24DD740091D584 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FCDD0A51B24DD740091D584 /* Images.xcassets */; };
@@ -30,6 +31,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1F2329741B25E1A600C37C7F /* MORelationship.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MORelationship.swift; path = Model/MORelationship.swift; sourceTree = "<group>"; };
 		1FCDD09C1B24DD740091D584 /* SwiftGenerator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftGenerator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FCDD0A01B24DD740091D584 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1FCDD0A11B24DD740091D584 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -428,6 +430,7 @@
 				1FCDD0BA1B24DD740091D584 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		1FCDD0BB1B24DD740091D584 /* Build configuration list for PBXNativeTarget "SwiftGeneratorTests" */ = {
 			isa = XCConfigurationList;
@@ -436,6 +439,7 @@
 				1FCDD0BD1B24DD740091D584 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

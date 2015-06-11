@@ -9,43 +9,62 @@
 import Foundation
 
 struct MORelationship {
-    let name: String
-    let sourceEntity: String
+    let relationName: String
+    let sourceEntityName: String
     let optional: Bool
-    let destEntity: String
+    let destEntityName: String
     let toMany: Bool
-    
+
     init?(source: String, element: NSXMLElement) {
         var failed = false
         // <relationship name="games" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Game" inverseName="passer" inverseEntity="Game" syncable="YES"/>
-        sourceEntity = source
-        
-        if let name = element.attributeForName("name")?.stringValue {
-            self.name = name
+        sourceEntityName = source
+
+        if let name = element.stringForAttribute("name") {
+            self.relationName = name
         }
-        else { self.name = "?"; failed = true }
-        
-        if let opt = element.attributeForName("optional")?.stringValue
-            where opt == "YES"
-        {
-        optional = true
+        else { self.relationName = "?"; failed = true }
+
+        optional = element.booleanAttribute("optional")
+
+        toMany = element.booleanAttribute("optional")
+
+        if let dest = element.stringForAttribute("destinationEntity"){
+            destEntityName = dest
         }
-        else { optional = false }
-        
-        if let many = element.attributeForName("optional")?.stringValue
-        where many == "YES"
-        {
-            toMany = true
-        }
-        else { toMany = false }
-        
-        if let dest = element.attributeForName("destinationEntity")?.stringValue {
-            destEntity = dest
-        }
-        else { destEntity = "?"; failed = true }
-        
+        else { destEntityName = "?"; failed = true }
+
         if failed { return nil }
     }
-    
-    
+
+
+    var declaration: String {
+        var template = "@NSManaged var \(relationName): "
+        if toMany {
+            template += "Set<\(destEntityName)>"
+            if optional { template += "?" }
+            else { template += "!" }
+        }
+        else {
+            template += destEntityName
+            if optional { template += "?" }
+            else { template += "!" }
+        }
+        return template
+    }
+
+    static let toManyAddTemplate =
+        "func add%%%nameObject%%%(new: %%%destEntityName%%%) {\n" +
+        "\tself.willChangeValueForKey(\"%%%name%%%\")" +
+        "\tself.primitive%%%destEntityName%%%.addObject(new)\n" +
+        "\tself.didChangeValueForKey(\"%%%name%%%\")\n"
+
+    var relationshipAccessors: String? {
+        if !toMany { return nil }
+
+
+
+        return ""
+    }
+
 }
