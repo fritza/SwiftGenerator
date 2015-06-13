@@ -8,6 +8,13 @@
 
 import Foundation
 
+enum Optionality {
+    case Optional
+    case Defaulted
+    case Neither
+    case Both
+}
+
 enum AttributeType {
     case IntegerAttr(Int)
     case StringAttr
@@ -20,7 +27,7 @@ enum AttributeType {
     ///
     /// :param: optional Whether to append "?" instead of "!". Default `false`.
     /// :returns: A string suitable for use as a Swift type.
-    func swiftType(optional: Bool = false) -> String {
+    func swiftType(#optionality: Optionality) -> String {
         var retval = ""
         switch self {
         case let .IntegerAttr(precision):
@@ -36,7 +43,16 @@ enum AttributeType {
         case let .UnknownAttr(str):
             retval = str
         }
-        if optional { retval += "?" } else { retval += "!" }
+        switch optionality {
+        case .Optional: retval += "?"
+            //  Explicitly optional, and not initially set. Starts nil.
+        case .Defaulted: retval += "!"
+            //  Explicitly required, and has a default value. It’s illegal to save it as nil, but could pass through that state before saving.
+        case .Both: retval += "?"
+            //  Explicitly optional, but starts with a value. Because optionality is an open feature, should be taken as likely nil, even if not initially so.
+        case .Neither: retval += "!"
+            //  Explicitly required, so it ought to be assumed non-nil. But not defaulted, so it could be nil.
+        }
         return retval
     }
     
@@ -69,9 +85,11 @@ enum AttributeType {
 struct MOAttribute {
     let name: String
     let kind: AttributeType
-    let optional: Bool
-    
-    //         <attribute name="whenPlayed" optional="YES" attributeType="Date" syncable="YES"/>
+    let optionality: Optionality
+
+    // <attribute name="whenPlayed" optional="YES" attributeType="Date" syncable="YES"/>
+    // <attribute name="longitude" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+
 
     init?(element: NSXMLElement) {
         if let name = element.attributeForName("name")?.stringValue,
@@ -79,21 +97,29 @@ struct MOAttribute {
         {
             self.name = name
             self.kind = AttributeType.fromAttributeTypeString(kind)
-            if let optAttribute = element.attributeForName("optional")
-                where optAttribute == "YES"
-                 { self.optional = true }
-            else { self.optional = false }
+            let optional = element.booleanAttribute("optional")
+
+            let defaulted: Bool
+            if let defaultValue = element.stringForAttribute("defaultValueString") {
+                defaulted = true
+                // TODO: Maybe collect the known traits and comment the properties.
+            }
+            else { defaulted = false }
+
+            if optional { self.optionality = .Optional }
+            else if defaulted { self.optionality = .Defaulted }
+            else { self.optionality = .Neither }
         }
         else {
             self.name = ""
             self.kind = AttributeType.UnknownAttr("")
-            self.optional = false
+            self.optionality = .Neither
             return nil
         }
     }
     
     var declaration: String {
-        return "@NSManaged var \(name): \(kind.swiftType(optional: self.optional))"
+        return "@NSManaged var \(name): \(kind.swiftType(optionality: self.optionality))"
     }
 }
 

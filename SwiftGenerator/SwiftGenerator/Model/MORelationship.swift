@@ -17,7 +17,9 @@ struct MORelationship {
 
     init?(source: String, element: NSXMLElement) {
         var failed = false
-        // <relationship name="games" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Game" inverseName="passer" inverseEntity="Game" syncable="YES"/>
+        // <relationship name="games" optional="YES" toMany="YES"
+        //  deletionRule="Cascade" destinationEntity="Game" inverseName="passer"
+        //  inverseEntity="Game" syncable="YES"/>
         sourceEntityName = source
 
         if let name = element.stringForAttribute("name") {
