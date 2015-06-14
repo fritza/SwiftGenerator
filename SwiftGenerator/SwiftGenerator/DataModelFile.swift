@@ -10,7 +10,7 @@ import Foundation
 
 struct DataModelFile {
     let fileURL: NSURL
-    var entities: [ManagedObjectClass] = []
+    var entities = [Entity]()
     
     init?(url: NSURL) {
         if let url = DataModelFile.modelFileFromModelPackage(url) {
@@ -22,15 +22,19 @@ struct DataModelFile {
         }
     }
     
-    func fillEntities() -> Bool {
+    mutating func fillEntities() -> Bool {
         var error: NSError?
         if let document = NSXMLDocument(contentsOfURL: fileURL, options: 0, error: &error),
             modelElement = document.rootElement()
             where modelElement.name! == "model"
         {
-            let entities = modelElement.elementsForName("entity") as! [NSXMLElement]
-            for entity in entities {
-                
+            let entityElements = modelElement.elementsForName("entity") as! [NSXMLElement]
+            for entity in entityElements {
+                if let entity = Entity(element: entity) {
+                    entities.append(entity)
+                }
+                else { break }
+                // FIXME: Do something about broken <entity>
             }
             
             return true
@@ -40,7 +44,7 @@ struct DataModelFile {
     
     static func modelFileFromModelPackage(url: NSURL) -> NSURL? {
         if url.filePathURL == nil { return nil }
-
+        
         if let components = url.pathComponents as? [String]
             where components.count >= 2
         {
@@ -64,10 +68,16 @@ struct DataModelFile {
                 return DataModelFile.modelFileFromModelPackage(url.URLByAppendingPathComponent(packageName + ".xcdatamodel"))
             }
         }
-        
         return nil
     }
 }
 
 // /Users/fritza/Dropbox/Swift/Beeswax/16-Measurement/Passer Rating/Passer_Rating.xcdatamodeld/Passer_Rating.xcdatamodel/contents
+
+extension DataModelFile : Printable {
+    var description: String {
+        let items = ", ".join(entities.map { $0.name })
+        return "\(fileURL.lastPathComponent!), \(entities.count) entities: " + items
+    }
+}
 
