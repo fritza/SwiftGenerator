@@ -8,10 +8,10 @@
 
 import Foundation
 
-struct Entity {
+struct Entity: Hashable {
     let name: String
     let attributes: Set<MOAttribute>
-    let relationships: [MORelationship]
+    let relationships: Set<MORelationship>
     
     init?(element: NSXMLElement) {
         if element.name != "entity" {
@@ -33,10 +33,10 @@ struct Entity {
                 else { failed = true; break }
             }
             
-            var rels = [MORelationship]()
+            var rels = Set<MORelationship>()
             for elem in relationshipElements {
                 if let rel = MORelationship(source: name, element: elem) {
-                    rels.append(rel)
+                    rels.insert(rel)
                 }
                 else { failed = true; break }
             }
@@ -54,11 +54,15 @@ struct Entity {
             return nil
         }
     }
+    
+    var hashValue: Int {
+        return name.hashValue ^ attributes.hashValue ^ relationships.hashValue
+    }
 }
 
 func ==(lhs: Entity, rhs: Entity) -> Bool {
     return lhs.name == rhs.name &&
-        lhs.attributes == rhs.attributes &&
-        lhs.relationships == rhs.relationships
+        lhs.attributes.exclusiveOr(rhs.attributes).count == 0 &&
+        lhs.relationships.exclusiveOr(rhs.relationships).count == 0
 }
 

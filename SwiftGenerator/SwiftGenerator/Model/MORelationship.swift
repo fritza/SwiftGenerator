@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct MORelationship: Equatable {
+struct MORelationship: Equatable, Hashable {
     let relationName: String
     let sourceEntityName: String
     let optional: Bool
@@ -69,6 +69,15 @@ struct MORelationship: Equatable {
         return ""
     }
 
+    
+    var hashValue: Int {
+        let relNameHash = relationName.hashValue
+        let sourceHash = sourceEntityName.hashValue
+        let optHash = optional.hashValue
+        let destHash = destEntityName.hashValue
+        let toManyHash = toMany.hashValue
+        return relNameHash ^ sourceHash ^ optHash ^ destHash ^ toManyHash
+    }
 }
 
 /*
