@@ -15,7 +15,7 @@ enum Optionality {
     case Both
 }
 
-enum AttributeType {
+enum AttributeType: Equatable {
     case IntegerAttr(Int)
     case StringAttr
     case FloatAttr
@@ -82,7 +82,49 @@ enum AttributeType {
     }
 }
 
-struct MOAttribute {
+func ==(lhs: AttributeType, rhs: AttributeType) -> Bool {
+    switch lhs {
+    case .StringAttr:
+        switch rhs {
+        case .StringAttr: return true
+        default: return false
+        }
+        
+    case .FloatAttr:
+        switch rhs {
+        case .FloatAttr: return true
+        default: return false
+        }
+        
+    case .DoubleAttr:
+        switch rhs {
+        case .DoubleAttr: return true
+        default: return false
+        }
+        
+    case .DateAttr:
+        switch rhs {
+        case .DateAttr: return true
+        default: return false
+        }
+        
+    case .IntegerAttr(let lhsPrecision):
+        switch rhs {
+        case .IntegerAttr(let rhsPrecision): return lhsPrecision == rhsPrecision
+        default: return false
+        }
+        
+    case .UnknownAttr(let lhsDesc):
+        switch rhs {
+        case .UnknownAttr(let rhsDesc): return lhsDesc == rhsDesc
+        default: return false
+        }
+        
+    default: return false
+    }
+}
+
+struct MOAttribute: Equatable {
     let name: String
     let kind: AttributeType
     let optionality: Optionality
@@ -121,6 +163,12 @@ struct MOAttribute {
     var declaration: String {
         return "@NSManaged var \(name): \(kind.swiftType(optionality: self.optionality))"
     }
+}
+
+func ==(lhs: MOAttribute, rhs: MOAttribute) -> Bool {
+    return lhs.name == rhs.name &&
+        lhs.kind == rhs.kind &&
+        lhs.optionality == rhs.optionality
 }
 
 
