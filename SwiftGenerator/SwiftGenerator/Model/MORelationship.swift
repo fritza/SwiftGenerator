@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct MORelationship {
+struct MORelationship: Equatable {
     let relationName: String
     let sourceEntityName: String
     let optional: Bool
@@ -70,3 +70,21 @@ struct MORelationship {
     }
 
 }
+
+/*
+let relationName: String
+let sourceEntityName: String
+let optional: Bool
+let destEntityName: String
+let toMany: Bool
+*/
+
+func ==(lhs: MORelationship, rhs: MORelationship) -> Bool {
+    return lhs.relationName == rhs.relationName &&
+        lhs.sourceEntityName == rhs.sourceEntityName &&
+        lhs.optional == rhs.optional &&
+        lhs.destEntityName == rhs.destEntityName &&
+        lhs.toMany == rhs.toMany
+}
+
+
