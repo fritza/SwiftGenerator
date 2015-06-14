@@ -8,14 +8,14 @@
 
 import Foundation
 
-enum Optionality {
-    case Optional
+enum Optionality: Int {
+    case Optional = 0
     case Defaulted
     case Neither
     case Both
 }
 
-enum AttributeType: Equatable {
+enum AttributeType: Equatable, Hashable {
     case IntegerAttr(Int)
     case StringAttr
     case FloatAttr
@@ -80,6 +80,11 @@ enum AttributeType: Equatable {
             return UnknownAttr(str)
         }
     }
+    
+    var hashValue: Int {
+        let asString = self.swiftType(optionality: .Optional)
+        return asString.hashValue
+    }
 }
 
 func ==(lhs: AttributeType, rhs: AttributeType) -> Bool {
@@ -124,10 +129,17 @@ func ==(lhs: AttributeType, rhs: AttributeType) -> Bool {
     }
 }
 
-struct MOAttribute: Equatable {
+struct MOAttribute: Equatable, Hashable {
     let name: String
     let kind: AttributeType
     let optionality: Optionality
+    
+    var hashValue: Int {
+        let kindHash = kind.hashValue
+        let nameHash = name.hashValue
+        let optionalityHash = optionality.hashValue
+        return kindHash ^ nameHash ^ optionalityHash
+    }
 
     // <attribute name="whenPlayed" optional="YES" attributeType="Date" syncable="YES"/>
     // <attribute name="longitude" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>

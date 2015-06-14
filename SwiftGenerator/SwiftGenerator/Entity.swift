@@ -10,7 +10,7 @@ import Foundation
 
 struct Entity {
     let name: String
-    let attributes: [MOAttribute]
+    let attributes: Set<MOAttribute>
     let relationships: [MORelationship]
     
     init?(element: NSXMLElement) {
@@ -25,10 +25,10 @@ struct Entity {
             relationshipElements = element.elementsForName("relationship") as? [NSXMLElement]
         {
             name = element.stringForAttribute("name")!  //  I’m nervous about unwrapping
-            var attrs = [MOAttribute]()
+            var attrs = Set<MOAttribute>()
             for elem in attributeElements {
                 if let att = MOAttribute(element: elem) {
-                    attrs.append(att)
+                    attrs.insert(att)
                 }
                 else { failed = true; break }
             }
@@ -56,4 +56,9 @@ struct Entity {
     }
 }
 
+func ==(lhs: Entity, rhs: Entity) -> Bool {
+    return lhs.name == rhs.name &&
+        lhs.attributes == rhs.attributes &&
+        lhs.relationships == rhs.relationships
+}
 
